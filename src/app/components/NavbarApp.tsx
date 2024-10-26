@@ -8,7 +8,7 @@ const NavbarApp: React.FunctionComponent<INavbarAppProps> = (props) => {
       <div className='bg-white/80 top-0 p-4 rounded-b-2xl w-full'>
          <div className='flex justify-between'>
             <div>Satkomindo</div>
-            <div>Setting</div>
+            <div>Settings</div>
          </div>
       </div>
    );
