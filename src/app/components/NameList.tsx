@@ -50,11 +50,13 @@ const NameList: FunctionComponent<INameListProps> = ({ startShuffle, stopShuffle
    }, [startShuffle]);
 
    return (
-      <div>
+      <div className={'w-full'}>
          <DialogWinner openDialog={isOpen} close={close} winner={winner} />
-         <div className='flex bg-white w-3/4 px-4 py-2 rounded-full justify-center items-center'>
-            <div className="font-bold text-4xl">
-               {winner}
+         <div className={'flex items-center justify-center'}>
+            <div className='flex bg-white w-3/4 px-4 py-2 rounded-full justify-center items-center'>
+               <div className="font-bold text-4xl">
+                  {winner}
+               </div>
             </div>
          </div>
       </div>
