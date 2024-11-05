@@ -2,6 +2,8 @@
 import { useState } from "react";
 import NavbarApp from "./components/NavbarApp";
 import NameList from "./components/NameList";
+import {Button} from '@nextui-org/react'
+import TitleLotery from "@/app/components/TitleLotery";
 
 export default function Home() {
 
@@ -22,17 +24,22 @@ export default function Home() {
             <div className="flex flex-col h-screen bg-red-200 w-1/3 relative ">
                 <NavbarApp />
                 <div className="bg-blue-100 flex flex-col justify-center items-center h-full">
+                    <TitleLotery
+                        title={"Event Ulang Tahung Satkomindo 2024"}
+                    />
                     <NameList
                         startShuffle={isShuffling}
                         stopShuffle={stopShuffle}
                     />
                     <div className="mt-10">
-                        <button
+                        <Button
+                            size={"lg"}
+                            radius={"full"}
                             onClick={onClick}
-                            className="bg-orange-400 px-3 py-2 rounded-full text-white"
+                            className="bg-orange-400 px-3 py-2 text-white"
                         >
                             Pilih Pemenang
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>
