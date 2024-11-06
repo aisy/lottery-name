@@ -10,7 +10,8 @@ interface IDialogWinnerProps {
 const DialogWinner: React.FunctionComponent<IDialogWinnerProps> = ({openDialog, close, winner}) => {
 
     return (
-        <Modal isOpen={openDialog} onClose={close}>
+        <Modal isOpen={openDialog} onClose={close} backdrop={"opaque"}
+               classNames={{base: "border-[#292f46] bg-[#19172c] dark:bg-[#19172c] text-[#a8b0d3]",}}>
             <ModalContent>
                 <>
                     <ModalHeader className="flex flex-col gap-1"></ModalHeader>
