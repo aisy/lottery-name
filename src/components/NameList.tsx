@@ -1,6 +1,6 @@
 import {useEffect, useState, FunctionComponent} from 'react';
-import useWinnerStore from '../stores/storeWinner';
-import useListLotery from "@/app/stores/storeListLotery";
+import useWinnerStore from '@/stores/storeWinner';
+import useListLotery from "@/stores/storeListLotery";
 import DialogWinner from './DialogWinner';
 
 interface INameListProps {
@@ -16,18 +16,13 @@ const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}
     }
 
     // set list
-    const {listLotery, setListLotery} = useListLotery()
+    const {listLotery} = useListLotery()
     const {winner, setWinner} = useWinnerStore();
     const [isOpen, setIsOpen] = useState(false);
 
     function close() {
         setIsOpen(false)
     }
-
-    // set
-    useEffect(() => {
-        setListLotery(["Dio", "Jojo", "Joseph", "Donald", "Jodio"]);
-    }, [setListLotery]);
 
     useEffect(() => {
         setWinner(shuffleName(listLotery));
@@ -59,11 +54,17 @@ const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}
         <div className={'w-full'}>
             <DialogWinner openDialog={isOpen} close={close} winner={winner}/>
             <div className={'flex items-center justify-center'}>
-                <div className='flex bg-white w-3/4 px-4 py-2 rounded-full justify-center items-center'>
-                    <div className="font-bold text-4xl">
-                        {winner}
+                {listLotery.length === 0 ?
+                    <div>
+                        Mohon isi data list
                     </div>
-                </div>
+                    :
+                    <div className='flex bg-white w-3/4 px-4 py-2 rounded-full justify-center items-center'>
+                        <div className="font-bold text-4xl">
+                            {winner}
+                        </div>
+                    </div>}
+
             </div>
         </div>
     );
