@@ -1,13 +1,14 @@
 "use client";
-import { useState } from "react";
-import NavbarApp from "./components/NavbarApp";
-import NameList from "./components/NameList";
+import {useState, useEffect} from "react";
+import NavbarApp from "@/components/NavbarApp";
+import NameList from "@/components/NameList";
 import {Button} from '@nextui-org/react'
-import TitleLotery from "@/app/components/TitleLotery";
+import TitleLotery from "@/components/TitleLotery";
+import useListLotery from "@/stores/storeListLotery";
 
 export default function Home() {
 
-    // const [winner, setWinner] = useState<string>('');
+    const {listLotery, setListLotery} = useListLotery()
     const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
     const onClick = () => {
@@ -17,12 +18,18 @@ export default function Home() {
     const stopShuffle = () => {
         setIsShuffling(false);
     }
+
+    // set list name
+    useEffect(() => {
+        setListLotery(["Dio", "Jojo", "Joseph", "Donald", "Jodio"]);
+    }, [setListLotery]);
+
     return (
         <div className="flex w-full h-screen">
             <div className="flex items-center justify-center h-scree w-1/3">
             </div>
             <div className="flex flex-col h-screen bg-red-200 w-1/3 relative ">
-                <NavbarApp />
+                <NavbarApp/>
                 <div className="bg-blue-100 flex flex-col justify-center items-center h-full">
                     <TitleLotery
                         title={"Event Ulang Tahung Satkomindo 2024"}
@@ -33,6 +40,7 @@ export default function Home() {
                     />
                     <div className="mt-10">
                         <Button
+                            isDisabled={listLotery.length === 0}
                             size={"lg"}
                             radius={"full"}
                             onClick={onClick}
