@@ -1,4 +1,5 @@
-import {create} from 'zustand'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware';
 
 // state
 interface ListLoteryState {
@@ -12,9 +13,22 @@ interface ListLoteryActions {
 
 type ListLoteryStore = ListLoteryState & ListLoteryActions
 
-const useListLotery = create<ListLoteryStore>((set) => ({
-    listLotery: [],
-    setListLotery: (newList: string[]) => set({listLotery: [...newList]})
-}));
+const useListLotery = create<ListLoteryStore>()(
+    persist(
+        (set) => ({
+            listLotery: [],
+            setListLotery: (newList: string[]) => set({ listLotery: [...newList] })
+        }),
+        {
+            // set name key in localstorage
+            name: 'listLottery',
+
+            // 
+            partialize: (state) => ({
+                listLotery: state.listLotery
+            })
+        },
+    )
+);
 
 export default useListLotery
