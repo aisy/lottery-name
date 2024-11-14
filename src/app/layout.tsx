@@ -1,5 +1,6 @@
-import type {Metadata} from "next";
-import {NextUIProvider} from '@nextui-org/react'
+import type { Metadata } from "next";
+import NavbarApp from "@/components/NavbarApp";
+import { NextUIProvider } from '@nextui-org/react'
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
@@ -8,19 +9,30 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
+    children,
+}: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html lang="en">
-        <body
-            className={`antialiased`}
-        >
-        <NextUIProvider>
-            {children}
-        </NextUIProvider>
-        </body>
+            <body
+                className={`antialiased`}
+            >
+                <NextUIProvider>
+                    <div className="flex w-full h-screen ">
+                        <div className="flex items-center justify-center h-screen w-1/3">
+                        </div>
+                        <div className="flex flex-col h-screen w-1/3 relative bg-blue-100 ">
+                            <NavbarApp />
+                            <div className="">
+                                {children}
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-center h-screen w-1/3">
+                        </div>
+                    </div>
+                </NextUIProvider>
+            </body>
         </html>
     );
 }
