@@ -20,9 +20,9 @@ export default function Home() {
     }
 
     // set list name
-    useEffect(() => {
-        setListLotery(["Dio", "Jojo", "Joseph", "Donald", "Jodio"]);
-    }, []);
+    // useEffect(() => {
+    //     setListLotery(["Dio", "Jojo", "Joseph", "Donald", "Jodio"]);
+    // }, []);
 
     return (
         <div className="flex flex-col justify-center items-center h-fit">
