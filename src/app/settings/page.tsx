@@ -4,18 +4,23 @@ import { useFormik } from 'formik';
 import listLotery from '@/stores/storeListLotery'
 import * as React from 'react';
 
-interface ISettingsPageProps {
-   title?: string,
-   listData?: string[]
+// interface ISettingPageProps {
+//    title?: string
+//    listData?: string[]
+// }
+
+interface settingValues {
+   nameEvent: string
+   list: string
 }
 
-const SettingsPage: React.FunctionComponent<ISettingsPageProps> = (props) => {
+const SettingsPage: React.FunctionComponent = () => {
 
    const { setListLotery } = listLotery()
 
    const formik = useFormik({
       initialValues: { nameEvent: '', list: '' },
-      onSubmit: (values: any) => {
+      onSubmit: (values: settingValues) => {
          // console.log(values)
 
          const convertArray = values.list.split(', ')

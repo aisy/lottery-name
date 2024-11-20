@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import NavbarApp from "@/components/NavbarApp";
+import { useState } from "react";
 import NameList from "@/components/NameList";
 import { Button } from '@nextui-org/react'
 import TitleLotery from "@/components/TitleLotery";
@@ -8,7 +7,7 @@ import useListLotery from "@/stores/storeListLotery";
 
 export default function Home() {
 
-    const { listLotery, setListLotery } = useListLotery()
+    const { listLotery } = useListLotery()
     const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
     const onClick = () => {

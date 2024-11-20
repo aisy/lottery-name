@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import SettingsPage from "./page";
 // import "../styles/globals.css";
 
 export const metadata: Metadata = {
