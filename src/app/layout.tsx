@@ -22,7 +22,7 @@ export default function RootLayout({
                     <div className="flex w-full h-screen ">
                         <div className="flex items-center justify-center h-screen w-1/3">
                         </div>
-                        <div className="flex flex-col h-screen w-1/3 relative bg-blue-100 ">
+                        <div className="flex flex-col h-screen w-1/3 relative bg-gradient-to-b to-blue-500/20 from-blue-500/5 ">
                             <NavbarApp />
                             <div className="">
                                 {children}
