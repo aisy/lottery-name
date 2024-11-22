@@ -1,13 +1,7 @@
 'use client';
 import { Button, Input, Textarea } from '@nextui-org/react';
 import { useFormik } from 'formik';
-import listLotery from '@/stores/storeListLotery'
-import * as React from 'react';
-
-// interface ISettingPageProps {
-//    title?: string
-//    listData?: string[]
-// }
+import storeListLotery from '@/stores/storeListLottery'
 
 interface settingValues {
    nameEvent: string
@@ -16,15 +10,19 @@ interface settingValues {
 
 const SettingsPage: React.FunctionComponent = () => {
 
-   const { setListLotery } = listLotery()
+   const { setListLottery, listLottery } = storeListLotery()
 
    const formik = useFormik({
-      initialValues: { nameEvent: '', list: '' },
+      initialValues: {
+         nameEvent: '',
+         list: listLottery.length > 0 ? listLottery.join(', ') : ''
+      },
+      enableReinitialize: true,
       onSubmit: (values: settingValues) => {
          // console.log(values)
 
          const convertArray = values.list.split(', ')
-         setListLotery(convertArray)
+         setListLottery(convertArray)
       }
    })
 
