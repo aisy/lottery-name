@@ -1,6 +1,6 @@
-import {useEffect, useState, FunctionComponent} from 'react';
+import { useEffect, useState, FunctionComponent } from 'react';
 import useWinnerStore from '@/stores/storeWinner';
-import useListLotery from "@/stores/storeListLotery";
+import useListLotery from "@/stores/storeListLottery";
 import DialogWinner from './DialogWinner';
 
 interface INameListProps {
@@ -8,7 +8,7 @@ interface INameListProps {
     stopShuffle: () => void
 }
 
-const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}) => {
+const NameList: FunctionComponent<INameListProps> = ({ startShuffle, stopShuffle }) => {
 
     const shuffleName = (array: string[]) => {
         const randomIndex: number = Math.floor(Math.random() * array.length);
@@ -16,8 +16,8 @@ const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}
     }
 
     // set list
-    const {listLotery} = useListLotery()
-    const {winner, setWinner} = useWinnerStore();
+    const { listLottery } = useListLotery()
+    const { winner, setWinner } = useWinnerStore();
     const [isOpen, setIsOpen] = useState(false);
 
     function close() {
@@ -25,20 +25,20 @@ const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}
     }
 
     useEffect(() => {
-        setWinner(shuffleName(listLotery));
-    }, [listLotery, setWinner]);
+        setWinner(shuffleName(listLottery));
+    }, [listLottery, setWinner]);
 
     useEffect(() => {
         if (startShuffle) {
             const shuffleInterval = setInterval(() => {
-                setWinner(shuffleName(listLotery));
+                setWinner(shuffleName(listLottery));
             }, 80);
 
             setTimeout(() => {
                 clearInterval(shuffleInterval);
 
                 // set winner
-                setWinner(shuffleName(listLotery));
+                setWinner(shuffleName(listLottery));
                 // open dialog
                 setIsOpen(true)
 
@@ -48,13 +48,13 @@ const NameList: FunctionComponent<INameListProps> = ({startShuffle, stopShuffle}
 
             return () => clearInterval(shuffleInterval);
         }
-    }, [startShuffle, listLotery, setWinner, stopShuffle]);
+    }, [startShuffle, listLottery, setWinner, stopShuffle]);
 
     return (
         <div className={'w-full'}>
-            <DialogWinner openDialog={isOpen} close={close} winner={winner}/>
+            <DialogWinner openDialog={isOpen} close={close} winner={winner} />
             <div className={'flex items-center justify-center'}>
-                {listLotery.length === 0 ?
+                {listLottery.length === 0 ?
                     <div>
                         Mohon isi data list
                     </div>
