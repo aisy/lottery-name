@@ -3,11 +3,11 @@ import { useState } from "react";
 import NameList from "@/components/NameList";
 import { Button } from '@nextui-org/react'
 import TitleLotery from "@/components/TitleLotery";
-import useListLotery from "@/stores/storeListLotery";
+import useListLotery from "@/stores/storeListLottery";
 
 export default function Home() {
 
-    const { listLotery } = useListLotery()
+    const { listLottery } = useListLotery()
     const [isShuffling, setIsShuffling] = useState<boolean>(false);
 
     const onClick = () => {
@@ -17,11 +17,6 @@ export default function Home() {
     const stopShuffle = () => {
         setIsShuffling(false);
     }
-
-    // set list name
-    // useEffect(() => {
-    //     setListLotery(["Dio", "Jojo", "Joseph", "Donald", "Jodio"]);
-    // }, []);
 
     return (
         <div className="flex flex-col justify-center items-center h-fit">
@@ -34,7 +29,7 @@ export default function Home() {
             />
             <div className="mt-10">
                 <Button
-                    isDisabled={listLotery.length === 0}
+                    isDisabled={listLottery.length === 0}
                     size={"lg"}
                     radius={"full"}
                     onClick={onClick}
