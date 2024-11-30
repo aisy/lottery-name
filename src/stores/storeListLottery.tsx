@@ -4,13 +4,12 @@ import { persist } from 'zustand/middleware';
 // state
 interface ListLotteryState {
     listLottery: string[];
-    isLoading: boolean;
-    // loadListLottery: () => void;
 }
 
 // list actions
 interface ListLoteryActions {
     setListLottery: (newList: string[]) => void;
+    removeListLottery: (listRemove: string) => void;
 }
 
 type ListLoteryStore = ListLotteryState & ListLoteryActions
@@ -19,17 +18,25 @@ const useListLotery = create<ListLoteryStore>()(
     persist(
         (set) => ({
             listLottery: [],
-            isLoading: true,
-            // loadListLottery: () => {
-            //     const storedList: string[] = JSON.parse(localStorage.getItem('listLottery') || '[]');
-            //     console.log(storedList)
-            //     set({
-            //         // listLottery: storedList, 
-            //         isLoading: false
-            //     });
-            // },
+            // listLottery: ["Mars", "Mercury", "Jupiter", "Saturn"],
             setListLottery: (newList: string[]) => {
                 set({ listLottery: [...newList] })
+            },
+            removeListLottery: (listRemove: string) => {
+                set((state) => {
+                    console.log('Removing:', listRemove);
+                    console.log('Before:', state.listLottery);
+
+                    const newList = state.listLottery.filter(
+                        (value) => value !== listRemove
+                    )
+
+                    console.log('After', newList);
+
+                    return {
+                        listLottery: newList
+                    }
+                })
             }
         }),
         {
