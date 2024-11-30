@@ -16,29 +16,38 @@ const NameList: FunctionComponent<INameListProps> = ({ startShuffle, stopShuffle
     }
 
     // set list
-    const { listLottery } = useListLotery()
-    const { winner, setWinner } = useWinnerStore();
+    const { listLottery, removeListLottery } = useListLotery()
+    const { winner, setWinner, setListWinner } = useWinnerStore();
     const [isOpen, setIsOpen] = useState(false);
+    // const winnerRef = useRef<string | null>(null);
 
     function close() {
         setIsOpen(false)
     }
 
     useEffect(() => {
+        // progress set name at first render
         setWinner(shuffleName(listLottery));
     }, [listLottery, setWinner]);
 
     useEffect(() => {
+        // doing start shuffle
         if (startShuffle) {
             const shuffleInterval = setInterval(() => {
                 setWinner(shuffleName(listLottery));
             }, 80);
 
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
                 clearInterval(shuffleInterval);
 
+                const winnerName = shuffleName(listLottery)
                 // set winner
-                setWinner(shuffleName(listLottery));
+                setWinner(winnerName);
+
+                // set winner and remove the winner from list
+                setListWinner(winnerName)
+                // removeListLottery(winnerName)
+
                 // open dialog
                 setIsOpen(true)
 
@@ -46,13 +55,16 @@ const NameList: FunctionComponent<INameListProps> = ({ startShuffle, stopShuffle
                 stopShuffle()
             }, 5000); // set animation 5 detik
 
-            return () => clearInterval(shuffleInterval);
+            return () => {
+                clearInterval(shuffleInterval);
+                clearTimeout(timeoutId);
+            }
         }
-    }, [startShuffle, listLottery, setWinner, stopShuffle]);
+    }, [startShuffle, listLottery, setWinner, stopShuffle, setListWinner, removeListLottery]);
 
     return (
         <div className={'w-full'}>
-            <DialogWinner openDialog={isOpen} close={close} winner={winner} />
+            <DialogWinner openDialog={isOpen} close={close} />
             <div className={'flex items-center justify-center'}>
                 {listLottery.length === 0 ?
                     <div>
@@ -63,8 +75,8 @@ const NameList: FunctionComponent<INameListProps> = ({ startShuffle, stopShuffle
                         <div className="font-bold text-4xl">
                             {winner}
                         </div>
-                    </div>}
-
+                    </div>
+                }
             </div>
         </div>
     );
