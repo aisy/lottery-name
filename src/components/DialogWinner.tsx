@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Modal, ModalContent, ModalBody, ModalHeader, } from '@nextui-org/react'
+import { Modal, ModalContent, ModalBody, ModalHeader, Button, } from '@nextui-org/react'
 import useWinnerStore from '@/stores/storeWinner'
+import useListLotery from '@/stores/storeListLottery';
 
 interface IDialogWinnerProps {
     openDialog: boolean
@@ -10,6 +11,12 @@ interface IDialogWinnerProps {
 const DialogWinner: React.FunctionComponent<IDialogWinnerProps> = ({ openDialog, close }) => {
 
     const { winner } = useWinnerStore();
+    const { removeListLottery } = useListLotery();
+
+    const buttonClick = () => {
+        removeListLottery(winner)
+        close()
+    }
 
     return (
         <Modal isOpen={openDialog} onClose={close} backdrop={"opaque"}
@@ -24,7 +31,12 @@ const DialogWinner: React.FunctionComponent<IDialogWinnerProps> = ({ openDialog,
                                 {winner}
                             </div>
                             <div className={"font-bold"}>
-                                mendapatkan hadiah
+                                mendapatkan hadiah ????
+                            </div>
+                            <div>
+                                <Button onClick={buttonClick}>
+                                    Ok
+                                </Button>
                             </div>
                         </div>
                     </ModalBody>
