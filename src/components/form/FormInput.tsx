@@ -12,7 +12,7 @@ const FormInput: React.FunctionComponent<FormInputProps> = ({
   placeholder,
   as = "input",
   options,
-  rows = 3,
+  className,
 }) => {
   return (
     <div>
@@ -26,7 +26,7 @@ const FormInput: React.FunctionComponent<FormInputProps> = ({
                   {...field}
                   id={name}
                   placeholder={placeholder}
-                  rows={rows}
+                  className={`h-40 field-sizing-fixed resize-y ${className}`}
                 />
               ) : as === "select" && options ? (
                 <select {...field} id={name}>
