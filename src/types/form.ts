@@ -2,7 +2,7 @@ import { FormikProps, FormikValues, FormikHelpers } from "formik";
 import { ReactNode } from "react";
 
 export type FormikChildrenFn<T extends FormikValues> = (
-  props: FormikProps<T>
+  props: FormikProps<T>,
 ) => ReactNode;
 
 export interface FormWrapperProps<T extends FormikValues = FormikValues> {
@@ -10,7 +10,7 @@ export interface FormWrapperProps<T extends FormikValues = FormikValues> {
   validate?: (values: T) => Partial<Record<keyof T, string>>;
   onSubmit: (
     values: T,
-    formikHelpers: FormikHelpers<T>
+    formikHelpers: FormikHelpers<T>,
   ) => Promise<void> | void;
   children: (props: FormikProps<T>) => React.ReactNode;
   enableReinitialize?: boolean;
@@ -24,6 +24,7 @@ export interface FormInputProps {
   as?: "input" | "textarea" | "select";
   options?: { value: string | number; label: string }[];
   rows?: number;
+  className?: string;
 }
 
 export interface FormSelectOption {
@@ -43,4 +44,13 @@ export interface FormSubmitProps {
   children: React.ReactNode;
   isSubmitting?: boolean;
   className?: string;
+}
+
+export interface FormSliderProps {
+  label?: string;
+  name?: string;
+  min: number;
+  max: number;
+  step?: number;
+  onChange?: (value: number[]) => void;
 }
