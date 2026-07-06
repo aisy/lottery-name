@@ -18,7 +18,7 @@ const NameList: FunctionComponent<INameListProps> = ({
   startShuffle,
   stopShuffle,
 }) => {
-  const { listLottery, removeListLottery } = useListLotery();
+  const { listLottery, removeListLottery, shuffleDuration } = useListLotery();
   const { winner, setWinner, setListWinner } = useWinnerStore();
   const [isOpen, setIsOpen] = useState(false);
   const [displayName, setDisplayName] = useState("");
@@ -50,7 +50,7 @@ const NameList: FunctionComponent<INameListProps> = ({
       }
 
       const elapsed = timestamp - startTimeRef.current;
-      const totalDuration = 4500; // total animation time (ms)
+      const totalDuration = shuffleDuration * 1000; // total animation time (ms)
 
       // Calculate interval based on elapsed time (ease-out effect)
       // Start at ~30ms (fast), end at ~350ms (slow)
@@ -87,7 +87,14 @@ const NameList: FunctionComponent<INameListProps> = ({
         }
       }
     },
-    [getNextName, setWinner, setListWinner, removeListLottery, stopShuffle],
+    [
+      getNextName,
+      setWinner,
+      setListWinner,
+      removeListLottery,
+      stopShuffle,
+      shuffleDuration,
+    ],
   );
 
   // Start animation when startShuffle is true

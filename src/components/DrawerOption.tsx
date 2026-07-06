@@ -4,6 +4,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerHeader,
   DrawerOverlay,
   DrawerTitle,
@@ -17,18 +18,22 @@ import FormInput from "./form/FormInput";
 import FormWrapper from "./form/FormWrapper";
 import SubmitForm from "./form/SubmitForm";
 import { Settings2Icon } from "lucide-react";
+import FormSlider from "./form/FormSlider";
 
 interface settingValues {
   nameEvent: string;
   list: string;
+  durationShuffle: number[];
 }
 
 const DrawerOption: React.FunctionComponent = () => {
-  const { setListLottery, listLottery } = storeListLotery();
+  const { setListLottery, listLottery, shuffleDuration, setShuffleDuration } =
+    storeListLotery();
 
   const initialValues: settingValues = {
     nameEvent: "",
     list: listLottery.length > 0 ? listLottery.join(", ") : "",
+    durationShuffle: [shuffleDuration],
   };
 
   const handleSubmit = async (
@@ -56,10 +61,12 @@ const DrawerOption: React.FunctionComponent = () => {
               <DrawerTitle>
                 <div className="flex items-center gap-2">
                   <Settings2Icon className="size-4" />
-                  <div className="text-xl font-bold">Settings - Data</div>
+                  <div className="text-xl font-bold">Pengaturan</div>
                 </div>
               </DrawerTitle>
-              <DrawerClose />
+              <DrawerDescription>
+                Manage your notification preferences
+              </DrawerDescription>
             </DrawerHeader>
             <div className="p-3">
               <FormWrapper
@@ -76,12 +83,19 @@ const DrawerOption: React.FunctionComponent = () => {
                       type="text"
                       as="input"
                     />
+                    <FormSlider
+                      label="Durasi pengacakan"
+                      name="durationShuffle"
+                      min={1}
+                      max={15}
+                      step={1}
+                      onChange={(value) => setShuffleDuration(value[0])}
+                    />
                     <FormInput
                       label="List Data yang di Acak"
                       name="list"
                       placeholder="List data yang diacak"
                       as="textarea"
-                      rows={6}
                     />
                     <SubmitForm
                       className="w-full bg-blue-500 p-2 text-white rounded-full"
